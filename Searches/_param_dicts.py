@@ -12,7 +12,7 @@ dict_main = {
 
 default_params = {
         'train_size': 0.7,
-        'epochs': 100,
+        'epochs': 1500,
         'batch_size': 64,
         'lr': 0.0001,
         'b1': 0.9,
