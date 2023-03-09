@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import random
 
-class RandomSearch(stocksGAN):
+class RandomSearch(): # stocksGAN
 
     """
     Random Search
@@ -14,7 +14,7 @@ class RandomSearch(stocksGAN):
     
     def __init__(
         self,
-        model: stocksGAN,
+        # model: stocksGAN,
         data,
         param_dict: dict = dict_main,
         ):
@@ -47,22 +47,22 @@ class RandomSearch(stocksGAN):
         
 
         """
-        self.model = model
+        # self.model = model
         self.data = data
         self.param_dict = param_dict
 
-        super().__init__(
-            data = self.data,
-            train_size = self.model.train_size,
-            epochs = self.model.epochs,
-            batch_size = self.model.batch_size,
-            lr = self.model.lr,
-            b1 = self.model.b1,
-            b2 = self.model.b2,
-            clip_value = self.model.clip_value,
-            random_state = self.model.random_state,
-            verbose = self.model.verbose
-            )
+        # super().__init__(
+        #     data = self.data,
+        #     train_size = self.model.train_size,
+        #     epochs = self.model.epochs,
+        #     batch_size = self.model.batch_size,
+        #     lr = self.model.lr,
+        #     b1 = self.model.b1,
+        #     b2 = self.model.b2,
+        #     clip_value = self.model.clip_value,
+        #     random_state = self.model.random_state,
+        #     verbose = self.model.verbose
+        #     )
         
 
     def fit(self,
@@ -93,7 +93,7 @@ class RandomSearch(stocksGAN):
             for key, value in self.param_dict.items():
                 params[key] = random.choice(value)
 
-            self.model = stocksGAN(
+            model = stocksGAN(
                 data = self.data,
                 train_size = params['train_size'],
                 epochs = params['epochs'],
@@ -102,11 +102,11 @@ class RandomSearch(stocksGAN):
                 b1 = params['b1'],
                 b2 = params['b2'],
                 clip_value = params['clip_value'],
-                random_state = params['random_state'],
-                verbose = self.model.verbose
+                random_state = params['random_state']
                 )
-            self.model.fit()
-            loss = self.model.loss
+            loss = model.train(verbose=verbose)
+            
+
             if loss < best_loss:
                 best_loss = loss
                 best_params = params

@@ -293,6 +293,9 @@ class stocksGAN(nn.Module):
                     % (epoch+1, self.epochs, loss_D.item(), loss_G.item())
                 )
 
+        return loss_G.item()
+            
+
 
 
     def sample(self, n_samples, plot=False):
